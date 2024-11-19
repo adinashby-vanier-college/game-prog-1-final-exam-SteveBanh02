@@ -13,7 +13,68 @@
             <javadoc xml:space="preserve">Act - do whatever the Hero wants to do. This method is called whenever the 'Act' or 'Run' button gets pressed in the environment.</javadoc>
             <params/>
             <throws/>
-            <body/>
+            <body>
+                <call expression="move()" expression-java="move()" enable="true"/>
+                <call expression="transitionToGameWon()" expression-java="transitionToGameWon()" enable="true"/>
+                <call expression="transitionToGameLost()" expression-java="transitionToGameLost()" enable="true"/>
+            </body>
+        </method>
+        <method access="public" type="void" type-java="void" name="move" enable="true">
+            <javadoc xml:space="preserve">method for making the lady bug move</javadoc>
+            <params/>
+            <throws/>
+            <body>
+                <if condition="Greenfoot.isKeyDown(&quot;left&quot;)" condition-java="Greenfoot.isKeyDown(&quot;left&quot;)" enable="true">
+                    <ifStatements>
+                        <call expression="move(2)" expression-java="move(2)" enable="true"/>
+                    </ifStatements>
+                </if>
+                <if condition="Greenfoot.isKeyDown(&quot;right&quot;)" condition-java="Greenfoot.isKeyDown(&quot;right&quot;)" enable="true">
+                    <ifStatements>
+                        <call expression="move(-2)" expression-java="move(-2)" enable="true"/>
+                    </ifStatements>
+                </if>
+                <if condition="Greenfoot.isKeyDown(&quot;up&quot;)" condition-java="Greenfoot.isKeyDown(&quot;up&quot;)" enable="true">
+                    <ifStatements>
+                        <call expression="turn(2)" expression-java="turn(2)" enable="true"/>
+                    </ifStatements>
+                </if>
+                <if condition="Greenfoot.isKeyDown(&quot;down&quot;)" condition-java="Greenfoot.isKeyDown(&quot;down&quot;)" enable="true">
+                    <ifStatements>
+                        <call expression="turn(-2)" expression-java="turn(-2)" enable="true"/>
+                    </ifStatements>
+                </if>
+            </body>
+        </method>
+        <method access="public" type="void" type-java="void" name="transitionToGameWon" enable="true">
+            <javadoc xml:space="preserve">transition to GameWon when the ladybug intersects with the finishLocation and start playing the winning sound</javadoc>
+            <params/>
+            <throws/>
+            <body>
+                <variable type="Actor" type-java="Actor" name="target" value="getOneIntersectingObject(FinishLocation.class)" value-java="getOneIntersectingObject(FinishLocation.class)" enable="true"/>
+                <if condition="target!=null" condition-java="target != null" enable="true">
+                    <ifStatements>
+                        <variable type="World" type-java="World" name="gameWon" value="new GameWon()" value-java=" new GameWon()" enable="true"/>
+                        <call expression="gameWon.started()" expression-java="gameWon.started()" enable="true"/>
+                        <call expression="Greenfoot.setWorld(gameWon)" expression-java="Greenfoot.setWorld(gameWon)" enable="true"/>
+                    </ifStatements>
+                </if>
+            </body>
+        </method>
+        <method access="public" type="void" type-java="void" name="transitionToGameLost" enable="true">
+            <javadoc xml:space="preserve">transition to GameLost when the ladybug intersects with a cannonBall and start playing the losing sound</javadoc>
+            <params/>
+            <throws/>
+            <body>
+                <variable type="Actor" type-java="Actor" name="cannonBall" value="getOneIntersectingObject(CannonBall.class)" value-java="getOneIntersectingObject(CannonBall.class)" enable="true"/>
+                <if condition="cannonBall!=null" condition-java="cannonBall != null" enable="true">
+                    <ifStatements>
+                        <variable type="World" type-java="World" name="gameLost" value="new GameLost()" value-java=" new GameLost()" enable="true"/>
+                        <call expression="gameLost.started()" expression-java="gameLost.started()" enable="true"/>
+                        <call expression="Greenfoot.setWorld(gameLost)" expression-java="Greenfoot.setWorld(gameLost)" enable="true"/>
+                    </ifStatements>
+                </if>
+            </body>
         </method>
     </methods>
 </class>
